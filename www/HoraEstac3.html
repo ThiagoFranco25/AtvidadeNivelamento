@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="components/loader.js"></script>
+      <script src="components/estac.js"></script>
+
+    <script>
+        //
+        // TODO: Write JavaScript code here
+        //
+    </script>
+</head>
+ <script type='text/javascript'>
+ 
+$(document).ready(function() {
+
+    $.ajax({
+      type:"post",//como vou enviar os dados ao servidor
+      url:"https://estacionamentocarros.000webhostapp.com/buscarSaida.php",//para onde vou enviar
+      dataType: "json",
+     //caso esteja tudo certo executa esse codigo
+      success: function(data){
+
+         var itemlista = "";
+        $.each(data.veiculo, function(i,dados){
+            itemlista += "<table class='table-responsive table-bordered'> <tr><th>Placa</th><th>Proprietario</th><th>Entrada</th><th>Saida</th><th>Valor</th></tr><br><tr><td>"+dados.placa+"</td><td>"+dados.nome+"</td><td>"+dados.entrada+"</td><td>"+dados.saida+"</td><td>R$"+dados.valor+"</td></tr> </table>";
+        });
+        $("#lista").html(itemlista);
+
+      },
+      //caso algo esteja errado executa esse codigo
+      error: function(data){
+        navigator.notification.alert("Erro ao buscar registros!");
+      }
+    });
+
+
+
+
+})
+
+ 
+</script>
+
+<body>
+
+<div class="container">
+
+<main>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="HoraEstac.html">Inicio</a></li>
+  <li role="presentation"><a href="HoraEstac2.html">Carros Registrados</a></li>
+  <li role="presentation"  class="active"><a href="HoraEstac3.html">Carros Saidos</a></li>
+</ul>
+    
+  
+  <div class="row">
+
+      <div class="col-xs-12">
+
+      <table class="table-bordered" name="" id="lista">
+
+      </div>
+
+  </div>
+
+</main>
+
+</div>
+
+</body>
+</html>
